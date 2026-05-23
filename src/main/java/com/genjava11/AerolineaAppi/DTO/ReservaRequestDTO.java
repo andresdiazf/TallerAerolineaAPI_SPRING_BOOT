@@ -8,7 +8,7 @@ public class ReservaRequestDTO {
     private LocalDateTime fechaReserva;
     private ClaseAsiento claseAsiento;
     private  Long pasajeroId;
-    private Long vueloID;
+    private Long vueloId;
 
     public ReservaRequestDTO() {}
 
@@ -37,10 +37,10 @@ public class ReservaRequestDTO {
     }
 
     public Long getVueloID() {
-        return vueloID;
+        return vueloId;
     }
 
     public void setVueloID(Long vueloID) {
-        this.vueloID = vueloID;
+        this.vueloId = vueloID;
     }
 }
