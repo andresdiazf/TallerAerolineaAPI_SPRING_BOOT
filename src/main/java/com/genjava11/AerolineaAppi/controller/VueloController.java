@@ -5,9 +5,7 @@ import com.genjava11.AerolineaAppi.model.Vuelo;
 import com.genjava11.AerolineaAppi.service.VueloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,9 +19,30 @@ public class VueloController {
     public VueloController(VueloService vueloService) {
         this.vueloService = vueloService;
     }
+
     @GetMapping
     public List<Vuelo> obtenerTodos() {
        return vueloService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Vuelo obtenerPorId(@PathVariable Long id) {
+        return vueloService.findById(id);
+    }
+
+    @PostMapping
+    public Vuelo crear(@RequestBody Vuelo vuelo) {
+        return vueloService.save(vuelo);
+    }
+
+    @PutMapping("/{id}")
+    public Vuelo actualizar(@PathVariable Long id, @RequestBody Vuelo datos) {
+        return vueloService.update(id, datos);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Long id) {
+        vueloService.delete(id);
     }
 
 }
