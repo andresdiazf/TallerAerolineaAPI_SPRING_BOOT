@@ -50,6 +50,7 @@ public class VueloController {
         vueloService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    //
 }
 
 
