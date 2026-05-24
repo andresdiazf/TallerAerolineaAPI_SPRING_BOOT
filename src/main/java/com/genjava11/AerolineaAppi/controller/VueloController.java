@@ -1,8 +1,9 @@
 package com.genjava11.AerolineaAppi.controller;
 
-import com.genjava11.AerolineaAppi.model.Pasajero;
 import com.genjava11.AerolineaAppi.model.Vuelo;
 import com.genjava11.AerolineaAppi.service.VueloService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Vuelos", description = "Gestión de vuelos de la aerolínea")
 @RestController
 @RequestMapping("/vuelos")
 public class VueloController {
@@ -22,9 +24,12 @@ public class VueloController {
         this.vueloService = vueloService;
     }
 
+    @Operation(summary = "Listar todos los vuelos")
     @GetMapping
     public ResponseEntity<List<Vuelo>> obtenerTodos(){return ResponseEntity.ok(vueloService.findAll());}
 
+
+    @Operation(summary = "Buscar vuelo por ID")
     @GetMapping("/{id}")
     public ResponseEntity<Vuelo> obtenerPorId(@PathVariable Long id) {
         Vuelo vuelo = vueloService.findById(id);
