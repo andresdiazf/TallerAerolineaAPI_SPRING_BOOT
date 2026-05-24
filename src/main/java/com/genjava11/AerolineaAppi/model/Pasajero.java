@@ -23,7 +23,7 @@ public class Pasajero {
     private String email;
 
     public Pasajero() {
-    }
+    } // constructor vacio
 
     public Pasajero(Long id, String nombre, String apellido, String documento, String email) {
         this.id = id;

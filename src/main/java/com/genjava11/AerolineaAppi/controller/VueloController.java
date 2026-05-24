@@ -3,7 +3,9 @@ package com.genjava11.AerolineaAppi.controller;
 import com.genjava11.AerolineaAppi.model.Pasajero;
 import com.genjava11.AerolineaAppi.model.Vuelo;
 import com.genjava11.AerolineaAppi.service.VueloService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,38 +15,41 @@ import java.util.List;
 @RequestMapping("/vuelos")
 public class VueloController {
 
-    private final VueloService vueloService;
+    private final VueloService vueloService; // inversion de control IoC
 
-    @Autowired
+    @Autowired // inyeccion dependencias
     public VueloController(VueloService vueloService) {
         this.vueloService = vueloService;
     }
 
     @GetMapping
-    public List<Vuelo> obtenerTodos() {
-       return vueloService.findAll();
-    }
+    public ResponseEntity<List<Vuelo>> obtenerTodos(){return ResponseEntity.ok(vueloService.findAll());}
 
     @GetMapping("/{id}")
-    public Vuelo obtenerPorId(@PathVariable Long id) {
-        return vueloService.findById(id);
+    public ResponseEntity<Vuelo> obtenerPorId(@PathVariable Long id) {
+        Vuelo vuelo = vueloService.findById(id);
+        if (vuelo == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(vuelo);
     }
 
     @PostMapping
-    public Vuelo crear(@RequestBody Vuelo vuelo) {
-        return vueloService.save(vuelo);
+    public ResponseEntity<Vuelo> crear(@Valid @RequestBody Vuelo vuelo) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(vueloService.save(vuelo));
     }
 
     @PutMapping("/{id}")
-    public Vuelo actualizar(@PathVariable Long id, @RequestBody Vuelo datos) {
-        return vueloService.update(id, datos);
+    public ResponseEntity<Vuelo> actualizar(@PathVariable Long id,
+                                               @Valid @RequestBody Vuelo datos) {
+        Vuelo actualizado = vueloService.update(id, datos);
+        if (actualizado == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(actualizado);
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         vueloService.delete(id);
+        return ResponseEntity.noContent().build();
     }
-
 }
 
 

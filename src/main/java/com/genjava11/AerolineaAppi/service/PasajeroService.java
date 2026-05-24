@@ -23,6 +23,7 @@ public class PasajeroService {
 
     public Pasajero save(Pasajero pasajero){ return pasajeroRepository.save(pasajero);} // es como hacer Insert o Update en pasajeros
 
+
     public Pasajero update(Long id, Pasajero pasajero) {
         Pasajero existente = pasajeroRepository.findById(id).orElse(null);
         if (existente == null) return null;
@@ -32,18 +33,19 @@ public class PasajeroService {
             existente.setDocumento(pasajero.getDocumento());
             return pasajeroRepository.save(existente);
         }
+
+    // metodo de prueba - path actualiza por campo
     public Pasajero patch(Long id, Map<String, Object> campos) {
         Pasajero existente = pasajeroRepository.findById(id).orElse(null);
         if (existente == null) return null;
-
         // Solo actualiza los campos que lleguen en el body
         if (campos.containsKey("nombre"))    existente.setNombre((String) campos.get("nombre"));
         if (campos.containsKey("apellido"))  existente.setApellido((String) campos.get("apellido"));
         if (campos.containsKey("email"))     existente.setEmail((String) campos.get("email"));
         if (campos.containsKey("documento")) existente.setDocumento((String) campos.get("documento"));
-
         return pasajeroRepository.save(existente);
     }
     public void delete(Long id){pasajeroRepository.deleteById(id);}
+
 }
 

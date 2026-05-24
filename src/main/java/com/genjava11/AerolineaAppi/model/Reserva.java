@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="reservas")
 public class Reserva {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,11 +31,10 @@ public class Reserva {
     @JoinColumn(name ="vuelo_id",nullable = false)
     private  Vuelo vuelo;
 
-    public Reserva(LocalDateTime fechaReserva, ClaseAsiento claseAsiento, Pasajero pasajero, Vuelo vuelo) {
-    }
+    public Reserva() {
+    } // constructor vacio
 
-    public Reserva(Long id, LocalDateTime fechaReserva, ClaseAsiento claseAsiento, Pasajero pasajero, Vuelo vuelo) {
-        this.id = id;
+    public Reserva(LocalDateTime fechaReserva, ClaseAsiento claseAsiento, Pasajero pasajero, Vuelo vuelo) {
         this.fechaReserva = fechaReserva;
         this.claseAsiento = claseAsiento;
         this.pasajero = pasajero;

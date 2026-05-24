@@ -22,10 +22,10 @@ public class Vuelo {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private EstadoVuelo estado;
+    private EstadoVuelo estado; // estado vuelo
 
     public Vuelo() {
-    }
+    } // constructor vacio
 
     public Vuelo(Long id, String origen, String destino, LocalDateTime fechaHora, EstadoVuelo estado) {
         this.id = id;

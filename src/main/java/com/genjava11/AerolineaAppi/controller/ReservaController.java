@@ -1,7 +1,7 @@
 package com.genjava11.AerolineaAppi.controller;
+
 import com.genjava11.AerolineaAppi.DTO.ReservaRequestDTO;
 import com.genjava11.AerolineaAppi.DTO.ReservaResponseDTO;
-import com.genjava11.AerolineaAppi.model.Reserva;
 import com.genjava11.AerolineaAppi.service.ReservaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reservas)")
+@RequestMapping("/reservas")
 public class ReservaController {
-    private final ReservaService reservaService;
+    private final ReservaService reservaService;// inversion de control IoC
 
-    @Autowired
+    @Autowired // inyeccion dependencias
     public ReservaController(ReservaService reservaService) {this.reservaService = reservaService;    }
 
     @GetMapping

@@ -1,4 +1,5 @@
 package com.genjava11.AerolineaAppi.DTO;
+
 import com.genjava11.AerolineaAppi.model.ClaseAsiento;
 import com.genjava11.AerolineaAppi.model.Reserva;
 
@@ -6,38 +7,37 @@ import com.genjava11.AerolineaAppi.model.Reserva;
 import java.time.LocalDateTime;
 
 public class ReservaResponseDTO {
-    private Long id;
+    private long id;
     private LocalDateTime fechaReserva;
     private ClaseAsiento claseAsiento;
     private Long pasajeroId;
     private String pasajeroNombre;
-    private String pasajeroApellido;
+//    private String pasajeroApellido;
+    private Long vueloId;
     private String vueloOrigen;
     private String vueloDestino;
-    private Long  vueloId;
 
-    public ReservaResponseDTO() {}
+    public ReservaResponseDTO() {
+    }
 
-    public static ReservaResponseDTO desde(Reserva reserva){
+    public static ReservaResponseDTO desde(Reserva reserva) {
         ReservaResponseDTO dto = new ReservaResponseDTO();
         dto.id = reserva.getId();
         dto.fechaReserva = reserva.getFechaReserva();
         dto.claseAsiento = reserva.getClaseAsiento();
         dto.pasajeroId = reserva.getPasajero().getId();
-        dto.pasajeroNombre = reserva.getPasajero().getNombre();
-        dto.pasajeroApellido = reserva.getPasajero().getApellido();
+        dto.pasajeroNombre = reserva.getPasajero().getNombre() + "_" + reserva.getPasajero().getApellido(); // preguntar profe
+        dto.vueloId = reserva.getVuelo().getId();
         dto.vueloOrigen = reserva.getVuelo().getOrigen();
         dto.vueloDestino = reserva.getVuelo().getDestino();
-        dto.vueloId = reserva.getVuelo().getId();
-        return  dto;
-
+        return dto;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -73,12 +73,20 @@ public class ReservaResponseDTO {
         this.pasajeroNombre = pasajeroNombre;
     }
 
-    public String getPasajeroApellido() {
-        return pasajeroApellido;
+//    public String getPasajeroApellido() {
+//        return pasajeroApellido;
+//    }
+//
+//    public void setPasajeroApellido(String pasajeroApellido) {
+//        this.pasajeroApellido = pasajeroApellido;
+//    }
+
+    public Long getVueloId() {
+        return vueloId;
     }
 
-    public void setPasajeroApellido(String pasajeroApellido) {
-        this.pasajeroApellido = pasajeroApellido;
+    public void setVueloId(Long vueloId) {
+        this.vueloId = vueloId;
     }
 
     public String getVueloOrigen() {
@@ -95,13 +103,5 @@ public class ReservaResponseDTO {
 
     public void setVueloDestino(String vueloDestino) {
         this.vueloDestino = vueloDestino;
-    }
-
-    public Long getVueloId() {
-        return vueloId;
-    }
-
-    public void setVueloId(Long vueloId) {
-        this.vueloId = vueloId;
     }
 }

@@ -22,11 +22,14 @@ public class ReservaService {
     private final VueloRepository vueloRepository;
 
     @Autowired
-    public ReservaService(ReservaRepository reservaRepository, PasajeroRepository pasajeroRepository, VueloRepository vueloRepository) {
+    public ReservaService(ReservaRepository reservaRepository,
+                          PasajeroRepository pasajeroRepository,
+                          VueloRepository vueloRepository) {
         this.reservaRepository = reservaRepository;
         this.pasajeroRepository = pasajeroRepository;
         this.vueloRepository = vueloRepository;
     }
+
     public List<ReservaResponseDTO> findAll(){
         return reservaRepository.findAll()
                 .stream()
@@ -42,7 +45,7 @@ public class ReservaService {
 
    public ReservaResponseDTO save(ReservaRequestDTO dto) {
        Pasajero pasajero = pasajeroRepository.findById(dto.getPasajeroId()).orElse(null);
-       Vuelo vuelo = vueloRepository.findById(dto.getVueloID()).orElse(null);
+       Vuelo vuelo = vueloRepository.findById(dto.getVueloId()).orElse(null);
        Reserva reserva = new Reserva(dto.getFechaReserva(),dto.getClaseAsiento(),pasajero,vuelo);
        return ReservaResponseDTO.desde(reservaRepository.save(reserva));
    }
@@ -54,8 +57,10 @@ public class ReservaService {
         existente.setFechaReserva(dto.getFechaReserva());
         existente.setClaseAsiento(dto.getClaseAsiento());
         existente.setPasajero(pasajero);
-        Vuelo vuelo = vueloRepository.findById(dto.getVueloID()).orElse(null);
+
+        Vuelo vuelo = vueloRepository.findById(dto.getVueloId()).orElse(null);
         existente.setVuelo(vuelo);
+
         return ReservaResponseDTO.desde(reservaRepository.save(existente));
    }
 
